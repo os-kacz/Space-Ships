@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "Vector2.h"
+#include "GameObject.h"
+#include "Collision.h"
 
 class Game
 {
@@ -18,8 +20,6 @@ class Game
 
  private:
   sf::RenderWindow& window;
-  sf::Sprite ball;
-  sf::Texture ball_texture;
 
 };
 

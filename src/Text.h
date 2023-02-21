@@ -1,0 +1,10 @@
+#ifndef SPACEINVADERSSFML_TEXT_H
+#define SPACEINVADERSSFML_TEXT_H
+
+class Text
+{
+ public:
+
+};
+
+#endif // SPACEINVADERSSFML_TEXT_H
