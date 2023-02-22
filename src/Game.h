@@ -1,11 +1,11 @@
-
 #ifndef SPACEINVADERS_GAME_H
 #define SPACEINVADERS_GAME_H
 
-#include <SFML/Graphics.hpp>
-#include "Vector2.h"
-#include "GameObject.h"
 #include "Collision.h"
+#include "Player.h"
+#include "Interface.h"
+#include "Vector2.h"
+#include <SFML/Graphics.hpp>
 
 class Game
 {
@@ -20,7 +20,9 @@ class Game
 
  private:
   sf::RenderWindow& window;
-
+  Interface interface;
+  Player player;
+  Collision collision;
 };
 
 #endif // SPACEINVADERS_GAME_H

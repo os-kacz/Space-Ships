@@ -14,7 +14,9 @@ class GameObject
   sf::Sprite* getSprite();
   bool visible = true;
   int health;
+  float speed = 100;
   Vector2 direction = Vector2(0, 0);
+
   void getBoundingBox();
   float top_l_x;
   float top_r_x;

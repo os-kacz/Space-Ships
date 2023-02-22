@@ -9,8 +9,9 @@ class Collision
   Collision();
   ~Collision();
   bool collisionCheck(GameObject& affector, GameObject& affected);
+  void windowCheck(GameObject& affector, sf::RenderWindow& window);
  private:
-  bool deflectCheck()
+  bool deflectCheck();
 };
 
 #endif // SPACEINVADERSSFML_COLLISION_H
