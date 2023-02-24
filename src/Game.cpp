@@ -6,6 +6,7 @@ Game::Game(sf::RenderWindow& game_window)
   : window(game_window), interface(window), player(window)
 {
   srand(time(NULL));
+
 }
 
 Game::~Game()
@@ -27,6 +28,7 @@ void Game::update(float dt)
     player.getSprite()->move(
       player.direction.x * dt,0);
     collision.windowCheck(player, window);
+    player.bullet->getSprite()->move(0,-10);
   }
 }
 

@@ -17,7 +17,14 @@ bool Player::initPlayer()
     (window.getSize().y - getSprite()->getGlobalBounds().height) + 15);
   getSprite()->setScale(0.5,0.5);
 
-  return initialiseSprite(texture,
+  for (auto & i : bullet)
+  {
+    i.initialiseSprite(bullet_texture,
+   "Data/Images/SpaceShooterRedux/PNG/Lasers/laserBlue01.png");
+    bullet_off_screen++;
+  }
+
+  return initialiseSprite(player_texture,
     "Data/Images/SpaceShooterRedux/PNG/playerShip1_blue.png");
 }
 
@@ -48,5 +55,15 @@ void Player::stop(sf::Event& event)
 
 void Player::shoot(sf::Event& event)
 {
-
+  if (event.key.code == sf::Keyboard::Space)
+  {
+    if (bullet_off_screen > 0)
+    {
+      bullet[bullet_off_screen].getSprite()->setPosition(
+        getSprite()->getPosition().x +
+          (getSprite()->getGlobalBounds().width / 2),
+        getSprite()->getPosition().y);
+      bullet_off_screen--;
+    }
+  }
 }

@@ -3,6 +3,7 @@
 
 #include "Collision.h"
 #include "Player.h"
+#include "Alien.h"
 #include "Interface.h"
 #include "Vector2.h"
 #include <SFML/Graphics.hpp>
@@ -22,6 +23,9 @@ class Game
   sf::RenderWindow& window;
   Interface interface;
   Player player;
+  const static int column = 10;
+  const static int row = 3;
+  Alien alien[column * row]; //stuck on array initialization with window param
   Collision collision;
   enum
   { MAINMENU = 0,
