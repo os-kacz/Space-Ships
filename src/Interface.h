@@ -12,6 +12,7 @@ class Interface
   bool initText();
   sf::Text main_text;
   sf::Text score;
+  sf::Text choice;
  private:
   sf::RenderWindow& window;
   sf::Font font;

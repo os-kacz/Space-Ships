@@ -9,14 +9,14 @@ class Player : public GameObject
  public:
   Player(sf::RenderWindow& window);
   ~Player();
-  void initPlayer();
+  bool initPlayer();
   void move(sf::Event& event);
   void stop(sf::Event& event);
   void shoot(sf::Event& event);
   int lives;
-  float speed_multiplier = 2;
   sf::Texture texture;
  private:
+  float speed_multiplier = 4;
   sf::RenderWindow& window;
 };
 

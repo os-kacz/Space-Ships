@@ -29,7 +29,7 @@ void Collision::windowCheck(GameObject& affector, sf::RenderWindow& window)
   {
     affector.getSprite()->setPosition(
       0,
-      0);
+      affector.getSprite()->getPosition().y);
   }
 
   if (affector.getSprite()->getPosition().y >
@@ -43,7 +43,7 @@ void Collision::windowCheck(GameObject& affector, sf::RenderWindow& window)
   if (affector.getSprite()->getPosition().y < 0)
   {
     affector.getSprite()->setPosition(
-      0,
+      affector.getSprite()->getPosition().x,
       0);
   }
 }

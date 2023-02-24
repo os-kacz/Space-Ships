@@ -15,30 +15,70 @@ Game::~Game()
 
 bool Game::init()
 {
-  player.initPlayer();
-  return interface.initText();
+  if (!player.initPlayer() || !interface.initText())
+    return false;
+  return true;
 }
 
 void Game::update(float dt)
 {
-  player.getSprite()->move(
-    player.direction.x * dt,0);
-  collision.windowCheck(player, window);
+  if (gamestate == PLAYGAME)
+  {
+    player.getSprite()->move(
+      player.direction.x * dt,0);
+    collision.windowCheck(player, window);
+  }
 }
 
 void Game::render()
 {
-  window.draw(interface.main_text);
-  window.draw(*player.getSprite());
+  switch(gamestate)
+  {
+    case (MAINMENU):
+    {
+      window.draw(interface.main_text);
+      break;
+    }
+    case (PLAYGAME):
+    {
+      window.draw(*player.getSprite());
+      break;
+    }
+    case (GAMELOSS):
+    {
+      break;
+    }
+    case (GAMEWIN):
+    {
+      break;
+    }
+    default:
+    {
+      break;
+    }
+  }
 }
 
 void Game::keyPressed(sf::Event event)
 {
-  player.move(event);
-  player.shoot(event);
+  if (gamestate == PLAYGAME)
+  {
+    player.move(event);
+    player.shoot(event);
+  }
+  if (gamestate == MAINMENU)
+  {
+    if (event.key.code == sf::Keyboard::Enter)
+    {
+      gamestate = PLAYGAME;
+    }
+  }
 }
 
 void Game::keyReleased(sf::Event event)
 {
-  player.stop(event);
+  if (gamestate == PLAYGAME)
+  {
+    player.stop(event);
+  }
 }

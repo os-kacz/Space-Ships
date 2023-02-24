@@ -23,6 +23,13 @@ class Game
   Interface interface;
   Player player;
   Collision collision;
+  enum
+  { MAINMENU = 0,
+    PLAYGAME = 1,
+    GAMELOSS = 2,
+    GAMEWIN  = 3,
+  } gamestate;
+  bool yn;
 };
 
 #endif // SPACEINVADERS_GAME_H

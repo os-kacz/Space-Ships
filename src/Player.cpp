@@ -1,7 +1,6 @@
 #include "Player.h"
 
-Player::Player(sf::RenderWindow& game_window)
-  : window(game_window)
+Player::Player(sf::RenderWindow& game_window) : window(game_window)
 {
   speed *= speed_multiplier;
 }
@@ -11,14 +10,15 @@ Player::~Player()
 
 }
 
-void Player::initPlayer()
+bool Player::initPlayer()
 {
-  initialiseSprite(texture,
-    "Data/Images/SpaceShooterRedux/PNG/playerShip1_blue.png");
   getSprite()->setPosition(
     (window.getSize().x / 2) - getSprite()->getGlobalBounds().width,
     (window.getSize().y - getSprite()->getGlobalBounds().height) + 15);
-  getSprite()->setScale(0.6,0.6);
+  getSprite()->setScale(0.5,0.5);
+
+  return initialiseSprite(texture,
+    "Data/Images/SpaceShooterRedux/PNG/playerShip1_blue.png");
 }
 
 void Player::move(sf::Event& event)

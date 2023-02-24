@@ -20,7 +20,7 @@ bool Interface::initText()
 
   main_text.setString("Press Enter to play Space Invaders");
   main_text.setFont(font);
-  main_text.setCharacterSize(65);
+  main_text.setCharacterSize(60);
   main_text.setFillColor(sf::Color::White);
   main_text.setPosition(
     (window.getSize().x / 2) - (main_text.getGlobalBounds().width / 2),
