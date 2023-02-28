@@ -2,6 +2,7 @@
 #define SPACEINVADERSSFML_PLAYER_H
 
 #include "GameObject.h"
+#include "Collision.h"
 #include <SFML/Graphics.hpp>
 
 class Player : public GameObject
@@ -13,15 +14,18 @@ class Player : public GameObject
   void move(sf::Event& event);
   void stop(sf::Event& event);
   void shoot(sf::Event& event);
-  void bulletUpdate();
-  GameObject bullet[5];
+  void bulletUpdate(float dt);
+  int const static max_ammo = 30;
+  GameObject bullet[max_ammo];
   int lives;
  private:
+  Collision collision;
   sf::Texture player_texture;
   sf::Texture bullet_texture;
-  int bullet_count = -1;
-  float speed_multiplier = 4;
   sf::RenderWindow& window;
+  float speed_multiplier = 4;
+  int bullet_count = 0;
+  float shot_elapsed_time = 0;
 };
 
 #endif // SPACEINVADERSSFML_PLAYER_H

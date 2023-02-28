@@ -28,7 +28,7 @@ void Game::update(float dt)
     player.getSprite()->move(
       player.direction.x * dt,0);
     collision.windowCheck(player, window);
-    player.bulletUpdate();
+    player.bulletUpdate(dt);
   }
 }
 

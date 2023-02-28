@@ -14,7 +14,7 @@ bool Player::initPlayer()
 {
   getSprite()->setPosition(
     (window.getSize().x / 2) - getSprite()->getGlobalBounds().width,
-    (window.getSize().y - getSprite()->getGlobalBounds().height) + 15);
+    (window.getSize().y - getSprite()->getGlobalBounds().height) - 45);
   getSprite()->setScale(0.5,0.5);
 
   for (auto & i : bullet)
@@ -24,7 +24,6 @@ bool Player::initPlayer()
       "Data/Images/SpaceShooterRedux/PNG/Lasers/laserBlue01.png");
     bullet_count++;
     i.visible = false;
-    std::cout << bullet_count << " bullet created\n";
   }
 
   initialiseSprite(player_texture,
@@ -61,32 +60,44 @@ void Player::stop(sf::Event& event)
 
 void Player::shoot(sf::Event& event)
 {
-  if (bullet_count >= 0)
+  if (bullet_count > 0)
   {
     if (event.key.code == sf::Keyboard::Space)
     {
-      //bullet[bullet_count].getSprite()->setPosition((getSprite()->getPosition().x),50);
-      bullet[bullet_count].visible = true;
       bullet_count--;
-      std::cout << "spacebar registered\n";
-      std::cout << bullet_count << std::endl;
+      bullet[bullet_count].visible = true;
+      shot_elapsed_time = 0;
     }
   }
 }
 
-void Player::bulletUpdate()
+void Player::bulletUpdate(float dt)
 {
+  shot_elapsed_time += dt;
+  if (shot_elapsed_time > 0.3)
+  {
+    bullet_count++;
+    if (bullet_count > max_ammo)
+    {
+      bullet_count = max_ammo;
+    }
+    shot_elapsed_time = 0;
+  }
+  std::cout << bullet_count << std::endl;
   for (auto & i : bullet)
   {
+    if (collision.windowCheck(i, window) == Collision::Type::TOP)
+    {
+      i.visible = false;
+    }
     if (!i.visible)
     {
       i.getSprite()->setPosition(
-        getSprite()->getPosition().x,
-        getSprite()->getPosition().y);
+        getSprite()->getPosition().x, getSprite()->getPosition().y);
     }
-    else
+    if (i.visible)
     {
-      i.getSprite()->move(0,-25);
+      i.getSprite()->move(0,-10);
     }
   }
 }

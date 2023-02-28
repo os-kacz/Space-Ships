@@ -8,8 +8,15 @@ class Collision
  public:
   Collision();
   ~Collision();
+  enum class Type
+  {
+    TOP,
+    BOTTOM,
+    LEFT,
+    RIGHT,
+  };
   bool collisionCheck(GameObject& affector, GameObject& affected);
-  void windowCheck(GameObject& affector, sf::RenderWindow& window);
+  Type windowCheck(GameObject& affector, sf::RenderWindow& window);
  private:
   bool deflectCheck();
 };
