@@ -13,14 +13,15 @@ class Player : public GameObject
   void move(sf::Event& event);
   void stop(sf::Event& event);
   void shoot(sf::Event& event);
-  int lives;
+  void bulletUpdate();
   GameObject bullet[5];
+  int lives;
  private:
   sf::Texture player_texture;
   sf::Texture bullet_texture;
+  int bullet_count = -1;
   float speed_multiplier = 4;
   sf::RenderWindow& window;
-  int bullet_off_screen = -1;
 };
 
 #endif // SPACEINVADERSSFML_PLAYER_H

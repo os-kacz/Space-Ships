@@ -19,13 +19,18 @@ bool Player::initPlayer()
 
   for (auto & i : bullet)
   {
-    i.initialiseSprite(bullet_texture,
-   "Data/Images/SpaceShooterRedux/PNG/Lasers/laserBlue01.png");
-    bullet_off_screen++;
+    i.initialiseSprite(
+      bullet_texture,
+      "Data/Images/SpaceShooterRedux/PNG/Lasers/laserBlue01.png");
+    bullet_count++;
+    i.visible = false;
+    std::cout << bullet_count << " bullet created\n";
   }
 
-  return initialiseSprite(player_texture,
+  initialiseSprite(player_texture,
     "Data/Images/SpaceShooterRedux/PNG/playerShip1_blue.png");
+
+  return true;
 }
 
 void Player::move(sf::Event& event)
@@ -33,12 +38,13 @@ void Player::move(sf::Event& event)
   if (event.key.code == sf::Keyboard::A)
   {
     direction.x = -1;
+    direction.x *= speed;
   }
   if (event.key.code == sf::Keyboard::D)
   {
     direction.x = 1;
+    direction.x *= speed;
   }
-  direction.x *= speed;
 }
 
 void Player::stop(sf::Event& event)
@@ -55,15 +61,32 @@ void Player::stop(sf::Event& event)
 
 void Player::shoot(sf::Event& event)
 {
-  if (event.key.code == sf::Keyboard::Space)
+  if (bullet_count >= 0)
   {
-    if (bullet_off_screen > 0)
+    if (event.key.code == sf::Keyboard::Space)
     {
-      bullet[bullet_off_screen].getSprite()->setPosition(
-        getSprite()->getPosition().x +
-          (getSprite()->getGlobalBounds().width / 2),
+      //bullet[bullet_count].getSprite()->setPosition((getSprite()->getPosition().x),50);
+      bullet[bullet_count].visible = true;
+      bullet_count--;
+      std::cout << "spacebar registered\n";
+      std::cout << bullet_count << std::endl;
+    }
+  }
+}
+
+void Player::bulletUpdate()
+{
+  for (auto & i : bullet)
+  {
+    if (!i.visible)
+    {
+      i.getSprite()->setPosition(
+        getSprite()->getPosition().x,
         getSprite()->getPosition().y);
-      bullet_off_screen--;
+    }
+    else
+    {
+      i.getSprite()->move(0,-25);
     }
   }
 }

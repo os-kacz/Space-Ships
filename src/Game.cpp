@@ -28,7 +28,7 @@ void Game::update(float dt)
     player.getSprite()->move(
       player.direction.x * dt,0);
     collision.windowCheck(player, window);
-    player.bullet->getSprite()->move(0,-10);
+    player.bulletUpdate();
   }
 }
 
@@ -44,6 +44,13 @@ void Game::render()
     case (PLAYGAME):
     {
       window.draw(*player.getSprite());
+      for (auto & i : player.bullet)
+      {
+        if (i.visible)
+        {
+          window.draw(*i.getSprite());
+        }
+      }
       break;
     }
     case (GAMELOSS):
