@@ -7,14 +7,14 @@
 class Alien : public GameObject
 {
  public:
-  Alien(/*sf::RenderWindow& window*/);
+  Alien(sf::RenderWindow& window);
   ~Alien();
-  bool initAlien();
+  bool initAlien(sf::RenderWindow& game_window);
   void move();
  private:
   sf::Texture texture;
   float speed_multiplier = 2;
-  //sf::RenderWindow& window;
+  sf::RenderWindow& window;
 };
 
 #endif // SPACEINVADERSSFML_ALIEN_H

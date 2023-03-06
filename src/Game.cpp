@@ -17,6 +17,15 @@ Game::~Game()
 bool Game::init()
 {
   if (!player.initPlayer() || !interface.initText())
+    // for alien pass window through function, not class init
+
+    for (auto & i : alien)
+    {
+      alien->initAlien(window);
+    }
+
+
+
     return false;
   return true;
 }
