@@ -36,6 +36,7 @@ class Game
     GAMEWIN  = 3,
   } gamestate;
   bool yn;
+  void spawnAlien();
 };
 
 #endif // SPACEINVADERS_GAME_H

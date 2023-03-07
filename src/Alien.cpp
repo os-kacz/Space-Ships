@@ -14,8 +14,6 @@ bool Alien::initAlien()
 {
   getSprite()->setScale(0.5,0.5);
 
-  direction.x = 1 * speed;
-
   return initialiseSprite(
     texture,
     "Data/Images/SpaceShooterRedux/PNG/Enemies/enemyRed1.png");
@@ -27,11 +25,17 @@ void Alien::update(float dt)
   if (collision.windowCheck(*this,window) == Collision::Type::LEFT)
   {
     direction.x = 1;
+    getSprite()->setPosition(
+      getSprite()->getPosition().x,
+      getSprite()->getPosition().y + 100);
     direction.x *= speed;
   }
   if (collision.windowCheck(*this,window) == Collision::Type::RIGHT)
   {
     direction.x = -1;
+    getSprite()->setPosition(
+      getSprite()->getPosition().x,
+      getSprite()->getPosition().y + 100);
     direction.x *= speed;
   }
 }
