@@ -11,11 +11,12 @@ class Player : public GameObject
   Player(sf::RenderWindow& window);
   ~Player();
   bool initPlayer();
+  void update();
   void move(sf::Event& event);
   void stop(sf::Event& event);
   void shoot(sf::Event& event);
   void bulletUpdate(float dt);
-  int const static max_ammo = 30;
+  int const static max_ammo = 5;
   GameObject bullet[max_ammo];
   int lives;
  private:

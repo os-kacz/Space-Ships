@@ -23,11 +23,12 @@ class Game
   sf::RenderWindow& window;
   Interface interface;
   Player player;
+  Collision collision;
   const static int column = 10;
   const static int row = 3;
   Alien alien[column*row];
   int alien_grid = 0;
-  Collision collision;
+  int score = 0;
   enum
   { MAINMENU = 0,
     PLAYGAME = 1,

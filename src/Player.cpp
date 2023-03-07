@@ -32,6 +32,20 @@ bool Player::initPlayer()
   return true;
 }
 
+void Player::update()
+{
+  if (collision.windowCheck(*this,window) == Collision::Type::LEFT)
+  {
+    getSprite()->setPosition(0,getSprite()->getPosition().y);
+  }
+  if (collision.windowCheck(*this,window) == Collision::Type::RIGHT)
+  {
+    getSprite()->setPosition(
+      window.getSize().x - getSprite()->getGlobalBounds().width,
+      getSprite()->getPosition().y);
+  }
+}
+
 void Player::move(sf::Event& event)
 {
   if (event.key.code == sf::Keyboard::A)

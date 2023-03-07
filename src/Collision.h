@@ -14,8 +14,9 @@ class Collision
     BOTTOM,
     LEFT,
     RIGHT,
+    NONE,
   };
-  bool collisionCheck(GameObject& affector, GameObject& affected);
+  bool gameobjectCheck(GameObject& affector, GameObject& affected);
   Type windowCheck(GameObject& affector, sf::RenderWindow& window);
  private:
   bool deflectCheck();

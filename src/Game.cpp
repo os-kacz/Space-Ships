@@ -40,10 +40,27 @@ void Game::update(float dt)
 {
   if (gamestate == PLAYGAME)
   {
+    interface.score.setString("Score: " + std::to_string(score));
+    collision.windowCheck(player, window);
     player.getSprite()->move(
       player.direction.x * dt,0);
-    collision.windowCheck(player, window);
+
+    player.update();
     player.bulletUpdate(dt);
+
+    for (auto & falien : alien)
+    {
+      falien.update(dt);
+      for (auto & fbullet : player.bullet)
+      {
+        if (collision.gameobjectCheck(fbullet, falien) && falien.visible)
+        {
+          falien.visible = false;
+          fbullet.visible = false;
+          score++;
+        }
+      }
+    }
   }
 }
 
@@ -59,6 +76,7 @@ void Game::render()
     case (PLAYGAME):
     {
       window.draw(*player.getSprite());
+      window.draw(interface.score);
       for (auto & i : player.bullet)
       {
         if (i.visible)

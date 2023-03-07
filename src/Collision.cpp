@@ -10,40 +10,70 @@ Collision::~Collision()
 
 }
 
-bool Collision::collisionCheck(GameObject& affector, GameObject& affected)
+bool Collision::gameobjectCheck(GameObject& affector, GameObject& affected)
 {
-  return false;
+  affector.getBoundingBox();
+  affected.getBoundingBox();
+  if (affector.top_r_x > affected.top_l_x
+      && affector.top_r_x < affected.top_r_x
+      && affector.bot_l_y > affected.top_l_y
+      && affector.bot_l_y < affected.bot_l_y)
+  {
+    return true;
+  }
+  if (affector.top_l_x > affected.top_l_x
+      && affector.top_l_x < affected.top_r_x
+      && affector.bot_l_y > affected.top_l_y
+      && affector.bot_l_y < affected.bot_l_y)
+  {
+    return true;
+  }
+  if (affector.top_r_x > affected.top_l_x
+      && affector.top_r_x < affected.top_r_x
+      && affector.top_l_y > affected.top_l_y
+      && affector.top_l_y < affected.bot_l_y)
+  {
+    return true;
+  }
+  if (affector.top_l_x > affected.top_l_x
+      && affector.top_l_x < affected.top_r_x
+      && affector.top_l_y > affected.top_l_y
+      && affector.top_l_y < affected.bot_l_y)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 Collision::Type
 Collision::windowCheck(GameObject& affector, sf::RenderWindow& window)
 {
-  if (affector.getSprite()->getPosition().x >
-      (window.getSize().x - affector.getSprite()->getGlobalBounds().width))
+  affector.getBoundingBox();
+  if (affector.top_r_x > window.getSize().x)
   {
-    affector.getSprite()->setPosition(
-      window.getSize().x - affector.getSprite()->getGlobalBounds().width,
-      affector.getSprite()->getPosition().y);
     return Type::RIGHT;
   }
 
-  if (affector.getSprite()->getPosition().x < 0)
+  if (affector.top_l_x < 0)
   {
-    affector.getSprite()->setPosition(
-      0,
-      affector.getSprite()->getPosition().y);
     return Type::LEFT;
   }
 
-  if (affector.getSprite()->getPosition().y >
-      (window.getSize().y - affector.getSprite()->getGlobalBounds().height))
+  if (affector.bot_l_y > window.getSize().y)
   {
     return Type::BOTTOM;
   }
 
-  if (affector.getSprite()->getPosition().y < 0)
+  if (affector.top_l_y < 0)
   {
     return Type::TOP;
+  }
+  else
+  {
+    return Type::NONE;
   }
 }
 
