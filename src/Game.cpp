@@ -2,8 +2,8 @@
 #include "Game.h"
 #include <iostream>
 
-Game::Game(sf::RenderWindow& game_window)
-  : window(game_window), interface(window), player(window)
+Game::Game(sf::RenderWindow& game_window) // theres gotta be a better way than 30 windows!!!!!
+  : window(game_window), interface(window), player(window), alien{window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window}
 {
   srand(time(NULL));
 
@@ -16,17 +16,23 @@ Game::~Game()
 
 bool Game::init()
 {
+  gamestate = MAINMENU;
   if (!player.initPlayer() || !interface.initText())
-    // for alien pass window through function, not class init
-
-    for (auto & i : alien)
-    {
-      alien->initAlien(window);
-    }
-
-
-
     return false;
+
+  for (auto & i : alien)
+  {
+    i.initAlien();
+  }
+  for (int r = 0; r < row; r++)
+  {
+    for (int c = 0; c < column; c++)
+    {
+      alien[c+alien_grid].getSprite()->setPosition(
+        ((window.getSize().x / column) * c) + 20,25 + (r*70));
+    }
+    alien_grid += column;
+  }
   return true;
 }
 
@@ -58,6 +64,13 @@ void Game::render()
         if (i.visible)
         {
           window.draw(*i.getSprite());
+        }
+      }
+      for (auto & j : alien)
+      {
+        if (j.visible)
+        {
+          window.draw(*j.getSprite());
         }
       }
       break;

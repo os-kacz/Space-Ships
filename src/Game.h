@@ -25,7 +25,8 @@ class Game
   Player player;
   const static int column = 10;
   const static int row = 3;
-  Alien alien[column * row]; //stuck on array initialization with window param
+  Alien alien[column*row];
+  int alien_grid = 0;
   Collision collision;
   enum
   { MAINMENU = 0,

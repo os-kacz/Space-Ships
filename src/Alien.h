@@ -9,7 +9,7 @@ class Alien : public GameObject
  public:
   Alien(sf::RenderWindow& window);
   ~Alien();
-  bool initAlien(sf::RenderWindow& game_window);
+  bool initAlien();
   void move();
  private:
   sf::Texture texture;
