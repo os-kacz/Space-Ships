@@ -13,6 +13,7 @@ class Interface
   sf::Text main_text;
   sf::Text score;
   sf::Text choice;
+  sf::Text shot_count;
  private:
   sf::RenderWindow& window;
   sf::Font font;

@@ -34,5 +34,13 @@ bool Interface::initText()
     (window.getSize().x / 2) - (main_text.getGlobalBounds().width / 2),
     (window.getSize().y / 2) - (main_text.getGlobalBounds().height / 2));
 
+  shot_count.setString("Shots: ");
+  shot_count.setFont(font);
+  shot_count.setCharacterSize(30);
+  shot_count.setFillColor(sf::Color::White);
+  shot_count.setPosition(
+    (window.getSize().x / 2) - (main_text.getGlobalBounds().width / 2),
+    (window.getSize().y / 4) * 3 - (main_text.getGlobalBounds().height / 2));
+
   return true;
 }

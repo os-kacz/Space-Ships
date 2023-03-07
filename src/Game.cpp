@@ -33,6 +33,8 @@ void Game::update(float dt)
   if (gamestate == PLAYGAME)
   {
     interface.score.setString("Score: " + std::to_string(score));
+    interface.shot_count.setString("Shots: " + std::to_string(player.bullet_count));
+
     collision.windowCheck(player, window);
     player.getSprite()->move(
       player.direction.x * dt,0);
@@ -54,6 +56,7 @@ void Game::update(float dt)
         {
           falien.visible = false;
           fbullet.visible = false;
+          player.bullet_count++;
           score++;
           if (score == (column*row))
           {
@@ -88,6 +91,7 @@ void Game::render()
     {
       window.draw(*player.getSprite());
       window.draw(interface.score);
+      window.draw(interface.shot_count);
       for (auto & i : player.bullet)
       {
         if (i.visible)

@@ -16,8 +16,9 @@ class Player : public GameObject
   void stop(sf::Event& event);
   void shoot(sf::Event& event);
   void bulletUpdate(float dt);
-  int const static max_ammo = 5;
+  int const static max_ammo = 6;
   GameObject bullet[max_ammo];
+  int bullet_count = 0;
   int lives;
  private:
   Collision collision;
@@ -25,7 +26,6 @@ class Player : public GameObject
   sf::Texture bullet_texture;
   sf::RenderWindow& window;
   float speed_multiplier = 4;
-  int bullet_count = 0;
   float shot_elapsed_time = 0;
 };
 

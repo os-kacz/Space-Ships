@@ -74,9 +74,9 @@ void Player::stop(sf::Event& event)
 
 void Player::shoot(sf::Event& event)
 {
-  if (bullet_count > 0)
+  if (event.key.code == sf::Keyboard::Space)
   {
-    if (event.key.code == sf::Keyboard::Space)
+    if (bullet_count > 0)
     {
       bullet_count--;
       bullet[bullet_count].visible = true;
@@ -97,12 +97,12 @@ void Player::bulletUpdate(float dt)
     }
     shot_elapsed_time = 0;
   }
-  std::cout << bullet_count << std::endl;
   for (auto & i : bullet)
   {
     if (collision.windowCheck(i, window) == Collision::Type::TOP)
     {
       i.visible = false;
+      bullet_count++;
     }
     if (!i.visible)
     {
