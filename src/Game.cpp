@@ -6,7 +6,6 @@ Game::Game(sf::RenderWindow& game_window) // theres gotta be a better way than 3
   : window(game_window), interface(window), player(window), alien{window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window}
 {
   srand(time(nullptr));
-
 }
 
 Game::~Game()
@@ -56,7 +55,8 @@ void Game::update(float dt)
         {
           falien.visible = false;
           fbullet.visible = false;
-          player.bullet_count++;
+          //player.bullet_count++;
+
           score++;
           if (score == (column*row))
           {

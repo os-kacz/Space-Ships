@@ -27,6 +27,8 @@ class Player : public GameObject
   sf::RenderWindow& window;
   float speed_multiplier = 4;
   float shot_elapsed_time = 0;
+
+  sf::Clock fire_timer;
 };
 
 #endif // SPACEINVADERSSFML_PLAYER_H
