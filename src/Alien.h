@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Collision.h"
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
 class Alien : public GameObject
 {
@@ -23,8 +24,9 @@ class Alien : public GameObject
   void moveGravity(float dt);
   void moveQuadratic(float dt);
   void moveSine(float dt);
+  bool alienWindowCheck();
   sf::Texture texture;
-  float speed_multiplier = 2.5;
+  float speed_multiplier = 0.15;
   sf::RenderWindow& window;
   Collision collision;
 };

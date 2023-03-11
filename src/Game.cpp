@@ -43,7 +43,7 @@ void Game::update(float dt)
 
     for (auto & _alien : alien)
     {
-      _alien.pattern = Alien::STRAIGHT;
+      _alien.pattern = Alien::QUADRATIC;
       _alien.update(dt);
       if (collision.gameobjectCheck(_alien,player) && _alien.visible)
       {

@@ -14,7 +14,9 @@ bool Alien::initAlien()
 {
   getSprite()->setScale(0.5,0.5);
 
-  direction.y *= speed;
+  direction.x = 10;
+  direction.y = 7;
+  direction.normalise();
 
   return initialiseSprite(
     texture,
@@ -55,33 +57,43 @@ void Alien::update(float dt)
 
 void Alien::moveStraight(float dt)
 {
-  getSprite()->move(direction.x * dt, 0);
-  if (collision.windowCheck(*this,window) == Collision::Type::LEFT)
+  getSprite()->move(direction.x * dt * speed, direction.y * dt * speed);
+  if (alienWindowCheck())
   {
-    direction.x = 1;
-    getSprite()->setPosition(
-      getSprite()->getPosition().x,
-      getSprite()->getPosition().y + direction.y);
-    direction.x *= speed;
-  }
-  if (collision.windowCheck(*this,window) == Collision::Type::RIGHT)
-  {
-    direction.x = -1;
-    getSprite()->setPosition(
-      getSprite()->getPosition().x,
-      getSprite()->getPosition().y + direction.y);
-    direction.x *= speed;
+    direction.x *= -1;
   }
 }
 void Alien::moveGravity(float dt)
 {
-
+  direction.y = pow(1.0013, getSprite()->getPosition().x);
+  getSprite()->move(direction.x * dt * speed, direction.y * dt * speed);
+  if (alienWindowCheck())
+  {
+    direction.x *= -1;
+  }
 }
 void Alien::moveQuadratic(float dt)
 {
-
+  direction.y = pow((0.01*getSprite()->getPosition().x),2);
+  getSprite()->move(direction.x * dt * speed, direction.y * dt * speed);
+  if (alienWindowCheck())
+  {
+    direction.x *= -1;
+  }
 }
 void Alien::moveSine(float dt)
 {
-
+  if (alienWindowCheck())
+  {
+    direction.x *= -1;
+  }
+}
+bool Alien::alienWindowCheck()
+{
+  if (collision.windowCheck(*this,window) == Collision::Type::LEFT
+      || collision.windowCheck(*this,window) == Collision::Type::RIGHT)
+  {
+    return true;
+  }
+  return false;
 }
