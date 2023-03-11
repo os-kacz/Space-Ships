@@ -30,10 +30,10 @@ class Game
   int alien_grid = 0;
   int score = 0;
   enum
-  { MAINMENU = 0,
-    PLAYGAME = 1,
-    GAMELOSS = 2,
-    GAMEWIN  = 3,
+  { MAINMENU,
+    PLAYGAME,
+    GAMELOSS,
+    GAMEWIN,
   } gamestate;
   bool yn;
   void spawnAlien();

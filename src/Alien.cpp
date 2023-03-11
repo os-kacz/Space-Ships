@@ -23,6 +23,38 @@ bool Alien::initAlien()
 
 void Alien::update(float dt)
 {
+  switch (pattern)
+  {
+    case (STRAIGHT):
+    {
+      moveStraight(dt);
+      break;
+    }
+    case (GRAVITY):
+    {
+      moveGravity(dt);
+      break;
+    }
+    case (QUADRATIC):
+    {
+      moveQuadratic(dt);
+      break;
+    }
+    case (SINE):
+    {
+      moveSine(dt);
+      break;
+    }
+    default:
+    {
+      moveStraight(dt);
+      break;
+    }
+  }
+}
+
+void Alien::moveStraight(float dt)
+{
   getSprite()->move(direction.x * dt, 0);
   if (collision.windowCheck(*this,window) == Collision::Type::LEFT)
   {
@@ -40,4 +72,16 @@ void Alien::update(float dt)
       getSprite()->getPosition().y + direction.y);
     direction.x *= speed;
   }
+}
+void Alien::moveGravity(float dt)
+{
+
+}
+void Alien::moveQuadratic(float dt)
+{
+
+}
+void Alien::moveSine(float dt)
+{
+
 }

@@ -76,40 +76,31 @@ void Player::shoot(sf::Event& event)
 {
   if (event.key.code == sf::Keyboard::Space)
   {
-    if (bullet_count >= 0 && fire_timer.getElapsedTime().asSeconds() > 0.5)
+    if (bullet_count > 0)
     {
-      if (bullet_count <= 0)
-      {
-        bullet_count = 6;
-      }
-      else
-      {
-        bullet_count--;
-      }
+      bullet_count--;
       bullet[bullet_count].visible = true;
-      //shot_elapsed_time = 0;
-      fire_timer.restart();
+      shot_elapsed_time = 0;
     }
   }
 }
 
 void Player::bulletUpdate(float dt)
 {
-//  shot_elapsed_time += dt;
-//  if (shot_elapsed_time > 0.3)
-//  {
-//    bullet_count++;
-//    if (bullet_count > max_ammo)
-//    {
-//      bullet_count = max_ammo;
-//    }
-//    shot_elapsed_time = 0;
-//  }
+  shot_elapsed_time += dt;
+  if (shot_elapsed_time > 0.3)
+  {
+    bullet_count++;
+    if (bullet_count > max_ammo)
+    {
+      bullet_count = max_ammo;
+    }
+    shot_elapsed_time = 0;
+  }
   for (auto & i : bullet)
   {
     if (collision.windowCheck(i, window) == Collision::Type::TOP)
     {
-      //bullet_count++;
       i.visible = false;
     }
     if (!i.visible)

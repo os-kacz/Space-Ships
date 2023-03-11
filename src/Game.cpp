@@ -43,6 +43,7 @@ void Game::update(float dt)
 
     for (auto & _alien : alien)
     {
+      _alien.pattern = Alien::STRAIGHT;
       _alien.update(dt);
       if (collision.gameobjectCheck(_alien,player) && _alien.visible)
       {
@@ -55,8 +56,6 @@ void Game::update(float dt)
         {
           _alien.visible = false;
           _bullet.visible = false;
-          //player.bullet_count++;
-
           score++;
           if (score == (column*row))
           {
@@ -72,6 +71,10 @@ void Game::update(float dt)
     for (auto & _alien : alien)
     {
       _alien.visible = true;
+    }
+    for (auto & _bullet : player.bullet)
+    {
+      _bullet.visible = false;
     }
     spawnAlien();
     score = 0;

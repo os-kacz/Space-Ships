@@ -48,7 +48,7 @@ int main()
     }
 
 
-    //'update' element of the game loop
+    //'moveStraight' element of the game loop
     game.update(dt);
 
     window.clear(sf::Color(40, 60 ,90, 255));
