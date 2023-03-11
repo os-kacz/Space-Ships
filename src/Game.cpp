@@ -19,9 +19,9 @@ bool Game::init()
   if (!player.initPlayer() || !interface.initText())
     return false;
 
-  for (auto & i : alien)
+  for (auto & _alien : alien)
   {
-    i.initAlien();
+    _alien.initAlien();
   }
   spawnAlien();
   return true;
@@ -41,20 +41,20 @@ void Game::update(float dt)
     player.update();
     player.bulletUpdate(dt);
 
-    for (auto & falien : alien)
+    for (auto & _alien : alien)
     {
-      falien.update(dt);
-      if (collision.gameobjectCheck(falien,player) && falien.visible)
+      _alien.update(dt);
+      if (collision.gameobjectCheck(_alien,player) && _alien.visible)
       {
         gamestate = GAMELOSS;
       }
-      for (auto & fbullet : player.bullet)
+      for (auto & _bullet : player.bullet)
       {
-        if (collision.gameobjectCheck(fbullet,falien)
-            && falien.visible && fbullet.visible)
+        if (collision.gameobjectCheck(_bullet, _alien)
+            && _alien.visible && _bullet.visible)
         {
-          falien.visible = false;
-          fbullet.visible = false;
+          _alien.visible = false;
+          _bullet.visible = false;
           //player.bullet_count++;
 
           score++;
@@ -69,9 +69,9 @@ void Game::update(float dt)
   }
   if (gamestate != PLAYGAME)
   {
-    for (auto & falien : alien)
+    for (auto & _alien : alien)
     {
-      falien.visible = true;
+      _alien.visible = true;
     }
     spawnAlien();
     score = 0;
