@@ -24,11 +24,12 @@ class Alien : public GameObject
   void moveGravity(float dt);
   void moveQuadratic(float dt);
   void moveSine(float dt);
-  bool alienWindowCheck();
   sf::Texture texture;
-  float speed_multiplier = 0.15;
+  float speed_multiplier = 5;
   sf::RenderWindow& window;
   Collision collision;
+  float x_axis;
+  float y_axis;
 };
 
 #endif // SPACEINVADERSSFML_ALIEN_H

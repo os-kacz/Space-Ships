@@ -23,7 +23,6 @@ bool Game::init()
   {
     _alien.initAlien();
   }
-  spawnAlien();
   return true;
 }
 
@@ -163,7 +162,6 @@ void Game::spawnAlien()
     {
       alien[c+alien_grid].getSprite()->setPosition(
         ((window.getSize().x / column) * c) + 20,25 + (r*70));
-      alien[c+alien_grid].direction.x = 1 * alien->speed;
     }
     alien_grid += column;
   }
