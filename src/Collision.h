@@ -18,8 +18,6 @@ class Collision
   };
   bool gameobjectCheck(GameObject& affector, GameObject& affected);
   Type windowCheck(GameObject& affector, sf::RenderWindow& window);
- private:
-  bool deflectCheck();
 };
 
 #endif // SPACEINVADERSSFML_COLLISION_H

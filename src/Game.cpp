@@ -6,6 +6,7 @@ Game::Game(sf::RenderWindow& game_window) // theres gotta be a better way than 3
   : window(game_window), interface(window), player(window), alien{window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window}
 {
   srand(time(nullptr));
+  //paul said i can put a for loop in here for the alien{window} initialisation but idk how :(
 }
 
 Game::~Game()

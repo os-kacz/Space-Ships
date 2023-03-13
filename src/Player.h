@@ -19,7 +19,6 @@ class Player : public GameObject
   int const static max_ammo = 6;
   GameObject bullet[max_ammo];
   int bullet_count = 0;
-  int lives;
  private:
   Collision collision;
   sf::Texture player_texture;

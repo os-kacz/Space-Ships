@@ -22,11 +22,7 @@ class Alien : public GameObject
   float step;
   float initial_pos;
  private:
-  void moveStraight(float dt);
-  void moveGravity(float dt);
-  void moveQuadratic(float dt);
-  void moveSine(float dt);
-  void collideSide();
+  void move(float dt);
   sf::Texture texture;
   float speed_multiplier = 2;
   sf::RenderWindow& window;

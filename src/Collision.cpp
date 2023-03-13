@@ -76,8 +76,3 @@ Collision::windowCheck(GameObject& affector, sf::RenderWindow& window)
     return Type::NONE;
   }
 }
-
-bool Collision::deflectCheck()
-{
-  return false;
-}
