@@ -43,7 +43,15 @@ void Game::update(float dt)
 
     for (auto & _alien : alien)
     {
-      _alien.pattern = Alien::SINE;
+      if (pattern_choice == 1)
+        _alien.pattern = Alien::STRAIGHT;
+      if (pattern_choice == 2)
+        _alien.pattern = Alien::GRAVITY;
+      if (pattern_choice == 3)
+        _alien.pattern = Alien::QUADRATIC;
+      if (pattern_choice == 4)
+        _alien.pattern = Alien::SINE;
+
       _alien.update(dt);
       if (collision.gameobjectCheck(_alien,player) && _alien.visible
           || collision.windowCheck(_alien, window)
@@ -91,7 +99,16 @@ void Game::render()
   {
     case (MAINMENU):
     {
+      interface.main_text.setString("Press Enter to play Space Invaders");
       window.draw(interface.main_text);
+      break;
+    }
+    case (OPTIONS):
+    {
+      interface.main_text.setString("Choose Alien Pattern");
+      interface.shot_count.setString("1. Straight\n2. Gravity\n3. Quadratic\n4. Sine Wave");
+      window.draw(interface.main_text);
+      window.draw(interface.shot_count);
       break;
     }
     case (PLAYGAME):
@@ -118,13 +135,17 @@ void Game::render()
     case (GAMELOSS):
     {
       interface.main_text.setString("You Lose :(");
+      interface.shot_count.setString("ENTER to play again\nESC to Main Menu");
       window.draw(interface.main_text);
+      window.draw(interface.shot_count);
       break;
     }
     case (GAMEWIN):
     {
       interface.main_text.setString("You Win!");
+      interface.shot_count.setString("ENTER to play again\nESC to Main Menu");
       window.draw(interface.main_text);
+      window.draw(interface.shot_count);
       break;
     }
     default:
@@ -136,16 +157,58 @@ void Game::render()
 
 void Game::keyPressed(sf::Event event)
 {
+  if (gamestate == MAINMENU)
+  {
+    if (event.key.code == sf::Keyboard::Enter)
+    {
+      gamestate = OPTIONS;
+    }
+    if (event.key.code == sf::Keyboard::Escape)
+    {
+      window.close();
+    }
+  }
+  if (gamestate == OPTIONS)
+  {
+    if (event.key.code == sf::Keyboard::Num1)
+    {
+      pattern_choice = 1;
+      gamestate = PLAYGAME;
+    }
+    if (event.key.code == sf::Keyboard::Num2)
+    {
+      pattern_choice = 2;
+      gamestate = PLAYGAME;
+    }
+    if (event.key.code == sf::Keyboard::Num3)
+    {
+      pattern_choice = 3;
+      gamestate = PLAYGAME;
+    }
+    if (event.key.code == sf::Keyboard::Num4)
+    {
+      pattern_choice = 4;
+      gamestate = PLAYGAME;
+    }
+  }
   if (gamestate == PLAYGAME)
   {
     player.move(event);
     player.shoot(event);
+    if (event.key.code == sf::Keyboard::Escape)
+    {
+      gamestate = MAINMENU;
+    }
   }
-  if (gamestate != PLAYGAME)
+  if (gamestate == GAMEWIN || gamestate == GAMELOSS)
   {
     if (event.key.code == sf::Keyboard::Enter)
     {
       gamestate = PLAYGAME;
+    }
+    if (event.key.code == sf::Keyboard::Escape)
+    {
+      gamestate = MAINMENU;
     }
   }
 }

@@ -26,6 +26,7 @@ class Alien : public GameObject
   void moveGravity(float dt);
   void moveQuadratic(float dt);
   void moveSine(float dt);
+  void collideSide();
   sf::Texture texture;
   float speed_multiplier = 2;
   sf::RenderWindow& window;

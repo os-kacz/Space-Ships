@@ -31,11 +31,12 @@ class Game
   int score = 0;
   enum
   { MAINMENU,
+    OPTIONS,
     PLAYGAME,
     GAMELOSS,
     GAMEWIN,
   } gamestate;
-  bool yn;
+  int pattern_choice;
   void spawnAlien();
 };
 
