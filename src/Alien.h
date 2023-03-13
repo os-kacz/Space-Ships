@@ -19,13 +19,15 @@ class Alien : public GameObject
     SINE,
   } pattern;
   void update(float dt);
+  float step;
+  float initial_pos;
  private:
   void moveStraight(float dt);
   void moveGravity(float dt);
   void moveQuadratic(float dt);
   void moveSine(float dt);
   sf::Texture texture;
-  float speed_multiplier = 5;
+  float speed_multiplier = 2;
   sf::RenderWindow& window;
   Collision collision;
   float x_axis;

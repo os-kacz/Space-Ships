@@ -31,7 +31,8 @@ void Game::update(float dt)
   if (gamestate == PLAYGAME)
   {
     interface.score.setString("Score: " + std::to_string(score));
-    interface.shot_count.setString("Shots: " + std::to_string(player.bullet_count));
+    interface.shot_count.setString("Shots: " + std::to_string(
+                                                 player.bullet_count));
 
     collision.windowCheck(player, window);
     player.getSprite()->move(
@@ -42,9 +43,11 @@ void Game::update(float dt)
 
     for (auto & _alien : alien)
     {
-      _alien.pattern = Alien::QUADRATIC;
+      _alien.pattern = Alien::SINE;
       _alien.update(dt);
-      if (collision.gameobjectCheck(_alien,player) && _alien.visible)
+      if (collision.gameobjectCheck(_alien,player) && _alien.visible
+          || collision.windowCheck(_alien, window)
+                 == Collision::Type::BOTTOM && _alien.visible)
       {
         gamestate = GAMELOSS;
       }
@@ -69,6 +72,8 @@ void Game::update(float dt)
   {
     for (auto & _alien : alien)
     {
+      _alien.step = 0;
+      _alien.direction.x = 1;
       _alien.visible = true;
     }
     for (auto & _bullet : player.bullet)
@@ -94,18 +99,18 @@ void Game::render()
       window.draw(*player.getSprite());
       window.draw(interface.score);
       window.draw(interface.shot_count);
-      for (auto & i : player.bullet)
+      for (auto & _bullet : player.bullet)
       {
-        if (i.visible)
+        if (_bullet.visible)
         {
-          window.draw(*i.getSprite());
+          window.draw(*_bullet.getSprite());
         }
       }
-      for (auto & j : alien)
+      for (auto & _alien : alien)
       {
-        if (j.visible)
+        if (_alien.visible)
         {
-          window.draw(*j.getSprite());
+          window.draw(*_alien.getSprite());
         }
       }
       break;
@@ -162,6 +167,8 @@ void Game::spawnAlien()
     {
       alien[c+alien_grid].getSprite()->setPosition(
         ((window.getSize().x / column) * c) + 20,25 + (r*70));
+      alien[c+alien_grid].initial_pos =
+        alien[c+alien_grid].getSprite()->getPosition().y;
     }
     alien_grid += column;
   }
