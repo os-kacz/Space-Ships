@@ -3,7 +3,7 @@
 #include <iostream>
 
 Game::Game(sf::RenderWindow& game_window) // theres gotta be a better way than 30 windows!!!!!
-  : window(game_window), interface(window), player(window), alien{window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window, window}
+  : window(game_window), interface(window), player(window)
 {
   srand(time(nullptr));
   //paul said i can put a for loop in here for the alien{window} initialisation but idk how :(
@@ -22,7 +22,7 @@ bool Game::init()
 
   for (auto & _alien : alien)
   {
-    _alien.initAlien();
+    _alien.initAlien(window);
   }
   return true;
 }

@@ -1,6 +1,6 @@
 #include "Alien.h"
 
-Alien::Alien(sf::RenderWindow& game_window) : window(game_window)
+Alien::Alien()
 {
   speed *= speed_multiplier;
 }
@@ -10,8 +10,9 @@ Alien::~Alien()
 
 }
 
-bool Alien::initAlien()
+bool Alien::initAlien(sf::RenderWindow& game_window)
 {
+  window = game_window;
   getSprite()->setScale(0.5,0.5);
 
   direction.x = 1;
