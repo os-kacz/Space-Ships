@@ -1,4 +1,3 @@
-
 #include "Game.h"
 #include <iostream>
 
@@ -6,7 +5,6 @@ Game::Game(sf::RenderWindow& game_window)
   : window(game_window), interface(window), player(window)
 {
   srand(time(nullptr));
-
   for (auto & _alien : alien)
   {
     _alien = new Alien(window);
