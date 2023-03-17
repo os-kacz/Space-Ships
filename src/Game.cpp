@@ -2,16 +2,24 @@
 #include "Game.h"
 #include <iostream>
 
-Game::Game(sf::RenderWindow& game_window) // theres gotta be a better way than 30 windows!!!!!
+Game::Game(sf::RenderWindow& game_window)
   : window(game_window), interface(window), player(window)
 {
   srand(time(nullptr));
-  //paul said i can put a for loop in here for the alien{window} initialisation but idk how :(
+
+  for (auto & _alien : alien)
+  {
+    _alien = new Alien(window);
+  }
 }
 
 Game::~Game()
 {
-
+  for (auto & _alien : alien)
+  {
+    delete _alien;
+    _alien = nullptr;
+  }
 }
 
 bool Game::init()
@@ -22,7 +30,7 @@ bool Game::init()
 
   for (auto & _alien : alien)
   {
-    _alien.initAlien(window);
+    _alien->initAlien();
   }
   return true;
 }
@@ -45,27 +53,27 @@ void Game::update(float dt)
     for (auto & _alien : alien)
     {
       if (pattern_choice == 1)
-        _alien.pattern = Alien::STRAIGHT;
+        _alien->pattern = Alien::STRAIGHT;
       if (pattern_choice == 2)
-        _alien.pattern = Alien::GRAVITY;
+        _alien->pattern = Alien::GRAVITY;
       if (pattern_choice == 3)
-        _alien.pattern = Alien::QUADRATIC;
+        _alien->pattern = Alien::QUADRATIC;
       if (pattern_choice == 4)
-        _alien.pattern = Alien::SINE;
+        _alien->pattern = Alien::SINE;
 
-      _alien.update(dt);
-      if (collision.gameobjectCheck(_alien,player) && _alien.visible
-          || collision.windowCheck(_alien, window)
-                 == Collision::Type::BOTTOM && _alien.visible)
+      _alien->update(dt);
+      if (collision.gameobjectCheck(*_alien,player) && _alien->visible
+          || collision.windowCheck(*_alien, window)
+                 == Collision::Type::BOTTOM && _alien->visible)
       {
         gamestate = GAMELOSS;
       }
       for (auto & _bullet : player.bullet)
       {
-        if (collision.gameobjectCheck(_bullet, _alien)
-            && _alien.visible && _bullet.visible)
+        if (collision.gameobjectCheck(_bullet, *_alien)
+            && _alien->visible && _bullet.visible)
         {
-          _alien.visible = false;
+          _alien->visible = false;
           _bullet.visible = false;
           score++;
           if (score == (column*row))
@@ -81,9 +89,9 @@ void Game::update(float dt)
   {
     for (auto & _alien : alien)
     {
-      _alien.step = 0;
-      _alien.direction.x = 1;
-      _alien.visible = true;
+      _alien->step = 0;
+      _alien->direction.x = 1;
+      _alien->visible = true;
     }
     for (auto & _bullet : player.bullet)
     {
@@ -126,9 +134,9 @@ void Game::render()
       }
       for (auto & _alien : alien)
       {
-        if (_alien.visible)
+        if (_alien->visible)
         {
-          window.draw(*_alien.getSprite());
+          window.draw(*_alien->getSprite());
         }
       }
       break;
@@ -229,10 +237,10 @@ void Game::spawnAlien()
   {
     for (int c = 0; c < column; c++)
     {
-      alien[c+alien_grid].getSprite()->setPosition(
+      alien[c+alien_grid]->getSprite()->setPosition(
         ((window.getSize().x / column) * c) + 20,25 + (r*70));
-      alien[c+alien_grid].initial_pos =
-        alien[c+alien_grid].getSprite()->getPosition().y;
+      alien[c+alien_grid]->initial_pos =
+        alien[c+alien_grid]->getSprite()->getPosition().y;
     }
     alien_grid += column;
   }

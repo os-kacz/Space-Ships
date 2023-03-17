@@ -9,9 +9,9 @@
 class Alien : public GameObject
 {
  public:
-  Alien();
+  Alien(sf::RenderWindow& game_window);
   ~Alien();
-  bool initAlien(sf::RenderWindow& game_window);
+  bool initAlien();
   enum
   { STRAIGHT,
     GRAVITY,
